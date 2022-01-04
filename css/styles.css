@@ -1,0 +1,22 @@
+.list-item {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration-style: dashed;
+}
+.list-item:hover {
+    background-color: cornflowerblue;
+}
+
+div {
+    border: solid black;
+    background-color: skyblue;
+    color: blue;
+    
+}
+
+h1 {
+    text-align: center;
+}
