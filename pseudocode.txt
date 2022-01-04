@@ -1,0 +1,149 @@
+
+-------------------------------------
+PSEUDOCODE FOR PROJECT 1 - MUSIC GAME
+-------------------------------------
+
+/*----- constants -----*/
+
+"notes" sound fx assigned a frequency in JS
+4 scaleArrays of sound objects for 4 major pentatonic scales (5 or 10 elements each)
+4 chordArrays of chord combinations of 4 major keys (6 elements each)(will be linked to a corresponding scaleArray by class)
+music player made of buttons
+
+
+/*----- app's state (variables) -----*/
+
+12 chord buttons that can be disabled
+4 scale buttons that can be disabled
+5 or 10 buttons on music player that scaleArray can be assigned to (one index per button)
+
+
+/*----- cached element references -----*/
+
+empty selectionArray to be filled with chord buttons pushed in order max_idx of 3 (4 button events)
+12 sound fx for chords (assigned to chord button, hosted online)
+string elements to populate selectionArray, one for each chord button
+
+/*----- event listeners -----*/
+
+mouse clicks for chord buttons
+mouse clicks for scale buttons
+hover over scales with text/image with more information about it
+mouse clicks for music player buttons
+key down strokes for music player buttons
+
+/*----- functions -----*/
+
+>populate selectionArray based on button clicks from chord buttons
+>play sound effect assigned to chord button in background
+>show on page the previously selected chords
+>iterate over 4 arrays of notes
+	> see if any of the 4 chordArrays include the same elements of selectionArray
+	> reduce user's scale button choices to those chordArrays that include all of the elements of the selectionArray
+>populate the music player buttons with elements from scaleArray that corresponds to the user-selected scale button
+>sound function that plays elements of scaleArray using music player buttons
+>sound function that plays sound fx corresponding to elements of selectionArray, in order, with 
+>set timer in between calling sound fx (for set tempo)
+	>must repeat
+>reset function
+>pause/play function
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+PSEUDOCODE
+
+1. User clicks any chord button
+	1.1 chosen chord is displayed in top-right div
+	1.2 sound effect link matching chosen chord is played in background on loop
+		1.2.1 set tempo (~500ms between sound fx, therefore if only one button clicked: 1500ms before sound effect heard again)
+	1.3 button sends unique string to selectionArray
+2. All 4 chordArrays iterated over to see if they contain string elements from selectionArray
+	2.1 If they do not contain ALL elements of selectionArray
+		2.1.1 their scale buttons are disabled on browser
+		2.1.2 find way to group these 'disabled' chordArrays together
+			2.1.2.1 if there are elements in the disabled chordArrays that are not found in active chordArrays
+					-> disable these chord buttons
+	2.2 user can select from remaining active scale buttons
+		2.1 once scale button is clicked, all others are disabled
+		2.2 scale button click-event assigns the elements of that scaleArray to the music player buttons, one element for each button
+	2.3 music player active for user
+3. User can choose from chord buttons that were not disabled in step 2
+	3.1 all clicked scale buttons are un-clicked and music player stops working (buttons no longer assigned elements from scaleArray)
+	3.2 chosen chord is displayed in top-right div
+	3.3 sound effect link matching chosen chord is played in background on loop (500ms from previously added sound effect)
+	3.4 if the button clicked is NOT already found in selectionArray -> button sends unique string to selectionArray
+	3.5 Step 2 again - iteration
+		3.5.1 if the same chord button was clicked twice in a row, the disabled chord and scale buttons 
+		      will be the same after iteration as long as selectionArray doesn't have duplicate elements
+4. Step 3 again
+5. Step 3 again
+6. selectionArray now has 4 elements
+	6.1 disable all chord buttons
+7. Reset button
+	7.1 removes all elements of selectionArray
+		7.1.1 this should reverse all previous steps and re-enable all buttons
+		7.1.2 this should remove all displayed chords in top-right div
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Example of iteration steps from choosing 1 chord:
+
+CHOICE 1 > A
+
+remaining scales: A Maj, D Maj, E Maj
+remaining chords: A, B, Bm, C#m, D, E, Em, F#m, G, G#m
+
+--------CHOICE 2 > A or F#m are picked -> don't reduce scale list
+
+--------CHOICE 2 > Bm or D are picked -> reduce list to A Maj and D Maj chords and scales
+
+----------------CHOICE 3 > if a C#m or E are added to the selected chords -> reduce list to A Maj chords and scales
+
+----------------CHOICE 3 > if a G or Em are added to the selected chords -> reduce list to D Maj chords and scales
+
+--------CHOICE 2 > C#m or E are picked -> reduce list to A Maj and E Maj chords and scales
+
+----------------CHOICE 3 > if a Bm or D are added to the selected chords -> reduce list to A Maj chords and scales
+
+----------------CHOICE 3 > if a G#m or B are added to the selected chords -> reduce list to E Maj chords and scales
+
+--------CHOICE 2 > Em or G are picked -> reduce list to D Maj chords and scale
+
+--------CHOICE 2 > G# or B are picked -> reduce list to E Maj chords and scale
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
