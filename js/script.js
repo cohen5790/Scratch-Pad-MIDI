@@ -5,11 +5,22 @@
 // 4 chordArrays of chord combinations of 4 major keys (6 elements each)(will be linked to a corresponding scaleArray by class)
 // music player made of buttons
 
-var allChords = ['A Major', 'A Minor', 'B Major', 'B minor', 'C Major', 'C# Minor', 'D Major', 'E Major', 'E Minor', 'F# Minor', 'G Major', 'G# Minor']
-var aMajorChords = ['A Major', 'B Minor', 'C# Minor', 'D Major', 'E Major', 'F# Minor']
-var dMajorChords = ['A Major', 'B Minor', 'D Major', 'E Minor', 'F# Minor', 'G Major']
-var eMajorChords = ['A Major', 'B Major', 'C# Minor', 'E Major', 'F# Minor', 'G# Minor']
-var gMajorChords = ['A Minor', 'B Minor', 'C Major', 'D Major', 'E Minor', 'G Major']
+const allChords = ['A Major', 'A Minor', 'B Major', 'B Minor', 'C Major', 'C# Minor', 'D Major', 'E Major', 'E Minor', 'F# Minor', 'G Major', 'G# Minor']
+const allKeys = ['A', 'D', 'E', 'G']
+
+var chordObjects = [
+    {key: 'A', chordArray: ['A Major', 'B Minor', 'C# Minor', 'D Major', 'E Major', 'F# Minor']},
+    {key: 'D', chordArray: ['A Major', 'B Minor', 'D Major', 'E Minor', 'F# Minor', 'G Major']},
+    {key: 'E', chordArray: ['A Major', 'B Major', 'C# Minor', 'E Major', 'F# Minor', 'G# Minor']},
+    {key: 'G', chordArray: ['A Minor', 'B Minor', 'C Major', 'D Major', 'E Minor', 'G Major']},
+]
+
+var scaleObjects = [
+    {key: 'A', scaleArray: ['a', 'b', 'csh', 'd', 'e', 'fsh']},
+    {key: 'D', scaleArray: ['a', 'b', 'd', 'e', 'fsh', 'g']},
+    {key: 'E', scaleArray: ['a', 'b', 'csh', 'e', 'fsh', 'gsh']},
+    {key: 'G', scaleArray: ['a', 'b', 'c', 'd', 'e', 'g']},
+]
 
 
 /*----- app's state (variables) -----*/
@@ -18,10 +29,10 @@ var gMajorChords = ['A Minor', 'B Minor', 'C Major', 'D Major', 'E Minor', 'G Ma
 // 4 scale buttons that can be disabled
 // 5 or 10 buttons on music player that scaleArray can be assigned to (one index per button)
 
-var availableChords = ['A Major', 'A Minor', 'B Major', 'B minor', 'C Major', 'C# Minor', 'D Major', 'E Major', 'E Minor', 'F# Minor', 'G Major', 'G# Minor']
-
-// use later for when the selected chord list needs to be limited to 4 list items/chords 
+var availableChords = []
+var availableKeys = []
 var selectedChords = []
+var selectedScale = ''
 
 /*----- cached element references -----*/
 
@@ -31,6 +42,9 @@ var selectedChords = []
 
 var chordListEl = document.getElementById('chord-list')
 var selectedChordEl = document.getElementById('selected-chords')
+var scaleButtonListEl = document.getElementById('scale-btn-list')
+
+
 
 /*----- event listeners -----*/
 
@@ -41,6 +55,7 @@ var selectedChordEl = document.getElementById('selected-chords')
 // key down strokes for music player buttons
 
 chordListEl.addEventListener('click', chordSelect)
+scaleButtonListEl.addEventListener('click', scaleSelector)
 
 
 
@@ -61,10 +76,68 @@ chordListEl.addEventListener('click', chordSelect)
 // >pause/play function
 
 
+window.onload = function firstListPopulation() {
+    allChords.forEach(function(item) {
+        let newEl = document.createElement('li')
+        newEl.innerText = item
+        newEl.classList.add('list-item')
+        chordListEl.appendChild(newEl)
+    })
+    allKeys.forEach(function(item) {
+        let newEl = document.createElement('button')
+        newEl.innerText = item + ' Major'
+        newEl.classList.add('scale-btn')
+        newEl.classList.add('inactive')
+        newEl.id = item
+        scaleButtonListEl.appendChild(newEl)
+    })
+}
 
 
+// Meat and potatoes
+function chordSelect(evt) {    
+    var clickedChord = evt.target
+    console.log(clickedChord)
+    addChord(clickedChord.innerText)
+    iterationTest() 
+    rePopulateChordList()
+    scaleBtnActivator()
+}
 
-function populateChordList() {
+// adds selected chord to second ul on display
+// caches selected chord into selection array
+function addChord(item) {
+    let newEl = document.createElement('li')
+    newEl.innerText = item
+    newEl.classList.add('list-item')
+    selectedChordEl.appendChild(newEl)
+    selectedChords.push(item)
+    console.log(selectedChords)
+}
+
+// iteration/comparison test: iterate over each chord progression array, see if they contain ALL values of current selection array, if true -> merge onto available chord array
+// creates available key array as well, to be used with scale objects of same key
+// arrow functions from newbdev: https://newbedev.com/typescript-check-if-array-is-subset-of-another-array-javascript-code-example
+function iterationTest() {
+    availableChords = []
+    availableKeys = []
+    chordObjects.forEach(function(obj) {
+        if(selectedChords.every(testItem => obj.chordArray.includes(testItem))) {
+            console.log('selected chords: ' + selectedChords)
+            console.log('obj.chordArr: ' + obj.chordArray)
+            availableChords = availableChords.concat(obj.chordArray)
+            availableChords = [...new Set([...availableChords,...obj.chordArray])]
+            availableKeys.push(obj.key)
+            console.log('available keys: ' + availableKeys)
+        } 
+        console.log('available chords: ' + availableChords)
+        console.log('available keys: ' + availableKeys)
+    })    
+}
+
+// re-populates the first ul using the updated available chord array
+function rePopulateChordList() {
+    chordListEl.innerHTML = ''
     availableChords.forEach(function(item) {
         let newEl = document.createElement('li')
         newEl.innerText = item
@@ -73,98 +146,42 @@ function populateChordList() {
     })
 }
 
-function addChord(item) {
-    let newEl = document.createElement('li')
-    newEl.innerText = item
-    newEl.classList.add('list-item')
-    selectedChordEl.appendChild(newEl)
-    selectedChords.push(item)
+// activate (via class) scale button if its btn-id matches any idx of the available key array
+// else, inactivate (via class)
+function scaleBtnActivator() {
+    scaleObjects.forEach(function(obj) {
+        var test = availableKeys.includes(obj.key)
+        if(test) {
+            let keyEl = obj.key
+            let btnEl = document.getElementById(keyEl)         
+            btnEl.classList.remove('inactive')
+            btnEl.classList.add('active')
+        }else if(!test) {
+            let keyEl = obj.key
+            let btnEl = document.getElementById(keyEl)         
+            btnEl.classList.remove('active')
+            btnEl.classList.add('inactive')
+        }
+    })
 }
 
-// function concatChordArrays() {
-//     if(selectedChords.includes('A Major')) {
-//         availableChords = aMajorChords.concat(dMajorChords, eMajorChords)
-// }
-
-// Different variables, so pull this out of click event listener function for
-populateChordList()
- 
-
-
-function chordSelect(evt) {
-    var clickedChord = evt.target
-    console.log(clickedChord)
-    if(clickedChord.innerText === 'A Major') {
-        availableChords = ['A Major', 'B Major', 'B Minor', 'C# Minor', 'D Major', 'E Major', 'E Minor', 'F# Minor', 'G Major', 'G# Minor']
-        chordListEl.innerHTML = ''        
-        populateChordList()
-        addChord(clickedChord.innerText)       
+// user has made chord choices...now it is time to select a single scale array by pushing the button
+// button has an id that will match the key of one of the scale arrays
+function scaleSelector(evt) {
+    var clickedButton = evt.target
+    let activeBtnEl = document.querySelectorAll('.in-use')
+    activeBtnEl.forEach(function(item) {
+        item.classList.remove('in-use')
+     
+    })      
+    console.log(clickedButton)
+    if(chordListEl.childElementCount === allChords.length) {
         return
-    } else if(clickedChord.innerText === 'A Minor') {
-        availableChords = ['A Minor', 'B Minor', 'C Major', 'D Minor', 'E Minor', 'G Major']
-        chordListEl.innerHTML = ''
-        populateChordList()        
-        addChord(clickedChord.innerText)
+    } else if(clickedButton.classList.contains('inactive')) {
         return
-    } else if(clickedChord.innerText === 'B Major') {
-        availableChords = ['B Major', 'C# Minor', 'E Major', 'F# Minor', 'G# Minor', 'A Major']
-        chordListEl.innerHTML = ''     
-        populateChordList()   
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'B Minor') {
-        availableChords = ['A Major', 'B Minor', 'C Major', 'C# Minor', 'D Major', 'E Major', 'E Minor', 'F# Minor', 'G Major']
-        chordListEl.innerHTML = ''    
-        populateChordList()    
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'C Major') {
-        availableChords = ['C Major', 'D Major', 'E Minor', 'G Major', 'A Minor', 'B Minor']
-        chordListEl.innerHTML = ''  
-        populateChordList()      
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'C# Minor') {
-        availableChords = ['A Major', 'B Major', 'B Minor', 'C# Minor', 'D Major', 'E Major', 'F# Minor', 'G# Minor']
-        chordListEl.innerHTML = ''
-        populateChordList()
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'D Major') {
-        availableChords = ['A Major', 'A Minor', 'B Minor', 'C Major', 'C# Minor', 'D Major', 'E Major', 'E Minor', 'F# Minor', 'G Major']
-        chordListEl.innerHTML = ''        
-        populateChordList()
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'E Major') {
-        availableChords = ['A Major', 'B Major', 'B Minor', 'C# Minor', 'D Major', 'E Major', 'F# Minor', 'G# Minor']
-        chordListEl.innerHTML = ''        
-        populateChordList()
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'E Minor') {
-        availableChords = ['A Major', 'A Minor', 'B Minor', 'C Major', 'C# Minor', 'D Major', 'E Minor', 'F# Minor', 'G Major']
-        chordListEl.innerHTML = ''     
-        populateChordList()   
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'F# Minor') {
-        availableChords = ['A Major', 'B Major', 'B Minor', 'C# Minor', 'D Major', 'E Major', 'E Minor', 'F# Minor', 'G Major', 'G# Minor']
-        chordListEl.innerHTML = ''        
-        populateChordList()
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'G Major') {
-        availableChords = ['A Major', 'A Minor', 'B Minor', 'C Major', 'D Major', 'E Minor', 'F# Minor', 'G Major']
-        chordListEl.innerHTML = ''   
-        populateChordList()     
-        addChord(clickedChord.innerText)
-        return
-    } else if(clickedChord.innerText === 'G# Minor') {
-        availableChords = ['A Major', 'B Major', 'C# Minor', 'E Major', 'F# Minor', 'G# Minor']
-        chordListEl.innerHTML = '' 
-        populateChordList()       
-        addChord(clickedChord.innerText)
-        return
+    } else {   
+        clickedButton.classList.add('in-use')
+        selectedScale = clickedButton.id
+        console.log(selectedScale)
     }
 }

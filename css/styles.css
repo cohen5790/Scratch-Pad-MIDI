@@ -20,3 +20,37 @@ div {
 h1 {
     text-align: center;
 }
+
+button {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: silver;
+    margin: 30px;
+}
+button:active {
+    top: 2px;
+    left: 1px;
+    box-shadow: none;
+}
+
+.scale-btn-list {
+    border: solid black
+}
+
+.active {    
+    background-color: green;
+    color: white;
+}
+
+.inactive {
+    background-color: red;
+    color: white;
+}
+
+.in-use {
+    color:yellow;
+    box-shadow: none;
+}
+
+.not-in-use {
+    color: purple;
+}
