@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: silver;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -36,8 +36,8 @@ h1 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: skyblue;
     color: blue;
-    border: solid 20px slategray;
-    padding: 50px 0px 50px 0px;    
+    border: 20px slategray;
+    border-style: groove;   
     margin: 25px 15% 0 15%;
   }
 
@@ -54,7 +54,8 @@ h4 {
 
 button {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color: silver;
+    background-color: steelblue;
+    color: white;
 }
 
 .pad-btn {
