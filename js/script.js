@@ -233,7 +233,6 @@ function playNote(wave, freq) {
 
 
 
-
 //*---------------------* My attempt at playing chords by hitting multiple oscillators/notes together
 //*---------------------* I have made it work for one chord, A Major, and need to condense all the attributes
 //*---------------------* of a chord into arguments for a single playChord function
@@ -257,6 +256,7 @@ function playAMaj () {
     oscTwo.start(0)
     oscThree.start(0)
 }
+
 
 function playAMin () {
     var oscOne = context.createOscillator
