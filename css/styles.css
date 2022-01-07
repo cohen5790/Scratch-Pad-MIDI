@@ -1,39 +1,71 @@
+body {
+  background-color: rgb(35, 64, 119);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 .list-item {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    list-style: none;
+    list-style: inside;
     display: flex;
     justify-content: space-around;
     align-items: center;
     text-decoration-style: dashed;
 }
+
+ul {
+  text-align: center;
+}
+
 .list-item:hover {
-    background-color: cornflowerblue;
+    background-color: cornflowerblue; 
 }
 
 div {
-    border: solid black;
+    border: solid 20px lightslategray;
     background-color: skyblue;
     color: blue;
-    
+    margin: 0 15% 0 15%;
+    border-style: ridge;    
 }
 
 h1 {
     text-align: center;
+    font-size: 60px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: skyblue;
+    color: blue;
+    border: solid 20px slategray;
+    padding: 50px 0px 50px 0px;    
+    margin: 25px 15% 0 15%;
+  }
+
+
+h4 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  block-size: fit-content;
+  width: fit-content;
+  padding: 20px;
+  border: solid 10px slategray;
+  border-style: groove;
+  margin: 0;
 }
 
 button {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: silver;
-    margin: 30px;
-}
-button:active {
-    top: 2px;
-    left: 1px;
-    box-shadow: none;
 }
 
-.scale-btn-list {
-    border: solid black
+.pad-btn {
+  font-size: 25px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  block-size: 200px;
+  width: 200px;
+}
+
+.scale-button-list {
+  justify-items: auto;
 }
 
 .active {    
@@ -47,10 +79,5 @@ button:active {
 }
 
 .in-use {
-    color:yellow;
-    box-shadow: none;
-}
-
-.not-in-use {
-    color: purple;
+    border: cornflowerblue;
 }

@@ -112,9 +112,233 @@ remaining chords: A, B, Bm, C#m, D, E, Em, F#m, G, G#m
 --------CHOICE 2 > Em or G are picked -> reduce list to D Maj chords and scale
 
 --------CHOICE 2 > G# or B are picked -> reduce list to E Maj chords and scale
-	
+
+**********************************************************************************************************************************************
+fresh ideas:
+
+-DONT use any latency attributes for web sound API, many browsers reject many of them
+- be able to enter a 'blank' chord to have a rest
+- selected chords = chord sounds => played apart from eachother at set variable 'x'
+	> let user change tempo by adjusting value of 'x'
+- just continue looping whatever the player has in selected chords
+- have a play/pause function in case it gets anoying or for mixing
+
+-Sound Sketch: new name...? 
+
+*************************************************************************************************************
+
+music stuff:
+
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Advanced_techniques
+
+	A simple, typical workflow for web audio would look something like this:
+
+		1.Create audio context
+		2.Inside the context, create sources — such as <audio>, oscillator, stream
+		3.Create effects nodes, such as reverb, biquad filter, panner, compressor
+		4.Choose final destination of audio, for example your system speakers
+		5.Connect the sources up to the effects, and the effects to the destination.
+
+keyboard build: https://codesandbox.io/s/javascript-synthesizer-7i16o?file=/js/main.js
+
+tone build tutorial: https://marcgg.com/blog/2016/11/01/javascript-audio/
+
+// help from MDN tutorial on keypress event https://developer.mozilla.org/en-US/docs/Web/API/Document/keypress_event
 
 
+// document.addEventListener('keypress', noteKeyed)
+
+
+// function noteKeyed(evt) {
+//     console.log(`${evt.code}`)
+//     if(`${evt.code}` === 'space') {
+//         console.log('reading')
+//         let keyedNote = noteButtonListEl.childNodes[1].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })    
+//         playNote('sine', keyFreq)
+//     }
+//     if(`${evt.code}` === 'keyH') {
+//         let keyedNote = noteButtonListEl.childNodes[2].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'keyJ') {
+//         let keyedNote = noteButtonListEl.childNodes[3].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)        
+//     } else if(`${evt.code}` === 'keyK') {
+//         let keyedNote = noteButtonListEl.childNodes[4].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'keyU') {
+//         let keyedNote = noteButtonListEl.childNodes[5].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'keyI') {
+//         let keyedNote = noteButtonListEl.childNodes[6].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'keyO') {
+//         let keyedNote = noteButtonListEl.childNodes[7].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Digit8') {
+//         let keyedNote = noteButtonListEl.childNodes[8].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Digit9') {
+//         let keyedNote = noteButtonListEl.childNodes[9].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Digit0') {
+//         let keyedNote = noteButtonListEl.childNodes[10].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } 
+//     if(`${evt.code}` === 'Numpad0') {
+//         let keyedNote = noteButtonListEl.childNodes[0].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })    
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad1') {
+//         let keyedNote = noteButtonListEl.childNodes[1].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad2') {
+//         let keyedNote = noteButtonListEl.childNodes[2].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)        
+//     } else if(`${evt.code}` === 'Numpad3') {
+//         let keyedNote = noteButtonListEl.childNodes[3].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad4') {
+//         let keyedNote = noteButtonListEl.childNodes[4].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad5') {
+//         let keyedNote = noteButtonListEl.childNodes[5].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad6') {
+//         let keyedNote = noteButtonListEl.childNodes[6].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad7') {
+//         let keyedNote = noteButtonListEl.childNodes[7].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad8') {
+//         let keyedNote = noteButtonListEl.childNodes[8].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } else if(`${evt.code}` === 'Numpad9') {
+//         let keyedNote = noteButtonListEl.childNodes[9].innerText
+//         noteObjects.forEach(function(item) {
+//             if(keyedNote.innerText === item.note) {
+//                 keyFreq = item.frequency
+//                 return keyFreq
+//             }
+//         })
+//         playNote('sine', keyFreq)
+//     } 
+// }
 
 
 
