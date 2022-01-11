@@ -226,7 +226,7 @@ function notePopulator() {
 }
 
 function keyedNote(evt) {
-    if(evt.code === 'Numpad0' || evt.code === 'KeyB') {
+    if(evt.code === 'Numpad0' || evt.code === 'Space') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[0].innerText === item.note) {
                 noteFreq = item.frequency
