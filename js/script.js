@@ -226,7 +226,7 @@ function notePopulator() {
 }
 
 function keyedNote(evt) {
-    if(evt.code === 'Numpad0') {
+    if(evt.code === 'Numpad0' || evt.code === 'KeyB') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[0].innerText === item.note) {
                 noteFreq = item.frequency
@@ -234,7 +234,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)        
     }
-    if(evt.code === 'Numpad1') {
+    if(evt.code === 'Numpad1' || evt.code === 'KeyH') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[1].innerText === item.note) {
                 noteFreq = item.frequency
@@ -242,7 +242,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad2') {
+    if(evt.code === 'Numpad2' || evt.code === 'KeyJ') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[2].innerText === item.note) {
                 noteFreq = item.frequency
@@ -250,7 +250,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad3') {
+    if(evt.code === 'Numpad3' || evt.code === 'KeyK') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[3].innerText === item.note) {
                 noteFreq = item.frequency
@@ -258,7 +258,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad4') {
+    if(evt.code === 'Numpad4' || evt.code === 'KeyU') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[4].innerText === item.note) {
                 noteFreq = item.frequency
@@ -266,7 +266,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad5') {
+    if(evt.code === 'Numpad5' || evt.code === 'KeyI') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[5].innerText === item.note) {
                 noteFreq = item.frequency
@@ -274,7 +274,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad6') {
+    if(evt.code === 'Numpad6' || evt.code === 'KeyO') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[6].innerText === item.note) {
                 noteFreq = item.frequency
@@ -282,7 +282,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad7') {
+    if(evt.code === 'Numpad7' || evt.code === 'Digit8') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[7].innerText === item.note) {
                 noteFreq = item.frequency
@@ -290,7 +290,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad8') {
+    if(evt.code === 'Numpad8' || evt.code === 'Digit9') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[8].innerText === item.note) {
                 noteFreq = item.frequency
@@ -298,7 +298,7 @@ function keyedNote(evt) {
         })
         playNote('sawtooth', noteFreq)
     }
-    if(evt.code === 'Numpad9') {
+    if(evt.code === 'Numpad9' || evt.code === 'Digit0') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[9].innerText === item.note) {
                 noteFreq = item.frequency
