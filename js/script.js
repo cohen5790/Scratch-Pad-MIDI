@@ -21,7 +21,7 @@ var scaleObjects = [
     {key: 'AMaj', scaleArray: ['A2', 'B2', 'C#3', 'E3', 'F#3', 'A3', 'B3', 'C#4', 'E4', 'F#4']},
     {key: 'DMaj', scaleArray: ['D3', 'E3', 'F#3', 'A3', 'B3', 'D4', 'E4', 'F#4', 'A4', 'B4']},
     {key: 'EMaj', scaleArray: ['E3', 'F#3', 'G#3', 'B3', 'C#4', 'E4', 'F#4', 'G#4', 'B4', 'C#5']},
-    {key: 'GMaj', scaleArray: ['G2', 'A2', 'B2', 'D3', 'E3', 'G3', 'A3', 'B3', 'D4', 'E4']},
+    {key: 'GMaj', scaleArray: ['G2', 'A2', 'B2', 'C3', 'E3', 'G3', 'A3', 'B3', 'C4', 'E4']},
 ]
 
 var noteObjects = [
