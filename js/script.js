@@ -56,39 +56,42 @@ var noteObjects = [
 var availableChords = []
 var availableKeys = []
 var selectedChords = []
+var forChordButton = []
 var selectedScale = ''
 var currentKey = ''
 var noteFreq = 0
 var keyFreq = 0
+var intervalValue = 2400
 
 
 /*----- cached element references -----*/
 
 
 var chordListEl = document.getElementById('chord-list')
-var selectedChordEl = document.getElementById('selected-chords')
+var selectedChordEl = document.getElementById('chord-btn-list')
 var scaleButtonListEl = document.getElementById('scale-btn-list')
 var noteButtonListEl = document.getElementById('note-btn-list')
 
 
 /*----- event listeners -----*/
 
-// key down strokes for music player buttons
-
 chordListEl.addEventListener('click', chordSelect)
+selectedChordEl.addEventListener('click', clickChord)
 scaleButtonListEl.addEventListener('click', scaleSelector)
 noteButtonListEl.addEventListener('click', clickNote)
+document.addEventListener('keydown', keyedChord) 
+document.addEventListener('keydown', keyedNote)
+
 
 
 
 /*----- functions -----*/
 
 
-// >playChord function for any argument of notes
-// >audio play function that plays each chord of selectionArray in key=''   
 // >set time between calling playChord fuction (for set tempo)
 // 	        >must repeat
-//          >pause/play function
+//          >pause/play function would be nice
+//          >consider setInterval methods
 
 
 window.onload = function firstListPopulation() {
@@ -106,37 +109,57 @@ window.onload = function firstListPopulation() {
         newEl.id = item
         scaleButtonListEl.appendChild(newEl)
     })
+    for(var i=1; i<=4; i++) {
+        let newEl = document.createElement('button')
+        newEl.innerText = ''
+        newEl.classList.add('pad-btn')
+        selectedChordEl.appendChild(newEl)        
+    }
     for(var i=1; i<=10; i++) {
         let buttonEl = document.createElement('button') 
         buttonEl.innerText = i
         buttonEl.classList.add('pad-btn')
-        buttonEl.classList.add('btn-'  + i)
         noteButtonListEl.appendChild(buttonEl)
     }
 }
 
-
 // Meat and potatoes
-function chordSelect(evt) {    
-    var clickedChord = evt.target
-    addChord(clickedChord.innerText)
-    iterationTest() 
+function chordSelect(evt) {
+    var clickedChord = evt.target    
+    selectedChords.push(clickedChord.innerText)
+    forChordButton.push(clickedChord.innerText)
+    addChord()
+    playChord(clickedChord.innerText)
+    iterationTest()
     rePopulateChordList()
     scaleBtnActivator()
 }
 
+function addChord() {
+    for(var i=0; i<4; i++) {
+        selectedChordEl.childNodes[i].innerText = forChordButton[i]
+    }
+} 
 
-function addChord(item) {
-    let newEl = document.createElement('li')
-    newEl.innerText = item
-    newEl.classList.add('list-item')
-    selectedChordEl.appendChild(newEl)
-    selectedChords.push(item)
+// setInterval(loopPlayer, 2400, playChord(selectedChordEl.childNodes[0].innerText), playChord(selectedChordEl.childNodes[1].innerText), playChord(selectedChordEl.childNodes[2].innerText), playChord(selectedChordEl.childNodes[3].innerText))
+
+// function loopPlayer()
+
+
+
+function keyedChord(evt) {
+    if(evt.code === 'Digit1') {
+        playChord(forChordButton[0])
+    } else if(evt.code === 'Digit2') {
+        playChord(forChordButton[1])
+    } else if(evt.code === 'Digit3') {
+        playChord(forChordButton[2])
+    } else if(evt.code === 'Digit4') {
+        playChord(forChordButton[3])
+    }
 }
 
-
 function iterationTest() {
-
     availableChords = []
     availableKeys = []
     chordObjects.forEach(function(obj) {
@@ -149,7 +172,6 @@ function iterationTest() {
     })    
 }
 
-
 function rePopulateChordList() {
     chordListEl.innerHTML = ''
     availableChords.forEach(function(item) {
@@ -159,7 +181,6 @@ function rePopulateChordList() {
         chordListEl.appendChild(newEl)
     })
 }
-
 
 function scaleBtnActivator() {
     scaleObjects.forEach(function(obj) {
@@ -177,7 +198,6 @@ function scaleBtnActivator() {
         }
     })
 }
-
 // gravy 
 function scaleSelector(evt) {
     var clickedButton = evt.target
@@ -193,8 +213,7 @@ function scaleSelector(evt) {
         clickedButton.classList.add('in-use')
         selectedScale = clickedButton.id
     }
-    notePopulator() 
-    playAMaj()
+    notePopulator()
 }
 function notePopulator() {
     scaleObjects.forEach(function(item) {
@@ -206,16 +225,103 @@ function notePopulator() {
     })
 }
 
+function keyedNote(evt) {
+    if(evt.code === 'Numpad0') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[0].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)        
+    }
+    if(evt.code === 'Numpad1') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[1].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad2') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[2].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad3') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[3].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad4') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[4].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad5') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[5].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad6') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[6].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad7') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[7].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad8') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[8].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+    if(evt.code === 'Numpad9') {
+        noteObjects.forEach(function(item) {
+            if(noteButtonListEl.childNodes[9].innerText === item.note) {
+                noteFreq = item.frequency
+            }
+        })
+        playNote('sawtooth', noteFreq)
+    }
+}
+
 // dessert
 function clickNote(evt) {
     let clickedNote = evt.target
     noteObjects.forEach(function(item) {
         if(clickedNote.innerText === item.note) {
             noteFreq = item.frequency
-            return noteFreq
         }
     })
     playNote('sawtooth', noteFreq)
+}
+
+function clickChord(evt) {
+    let chordForSfx = evt.target
+    playChord(chordForSfx.innerText)
 }
 
 // inspired by https://codesandbox.io/s/javascript-synthesizer-7i16o?file=/js/main.js
@@ -223,6 +329,7 @@ function playNote(wave, freq) {
     var gainNode = context.createGain()
     gainNode.connect(context.destination)
     gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1)
+    gainNode.gain.value = 0.25
     var oscNode = context.createOscillator()
     oscNode.type = wave
     oscNode.frequency.value = freq
@@ -230,86 +337,81 @@ function playNote(wave, freq) {
     oscNode.start(0)
 }
 
-
-
-
-//*---------------------* My attempt at playing chords by hitting multiple oscillators/notes together
-//*---------------------* I have made it work for one chord, A Major, and need to condense all the attributes
-//*---------------------* of a chord into arguments for a single playChord function
-function playAMaj () {
-    var gainNode = context.createGain()
-    gainNode.connect(context.destination)
-    gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1)
-    var oscOne = context.createOscillator()
-    oscOne.type = 'sine'
-    oscOne.frequency.value = 220.0  
-    oscOne.connect(gainNode)  
-    var oscTwo = context.createOscillator()
-    oscTwo.type = 'sine'
-    oscTwo.frequency.value = 329.6 
-    oscTwo.connect(gainNode)   
-    var oscThree = context.createOscillator()
-    oscThree.connect(gainNode) 
-    oscThree.type = 'sine'
-    oscThree.frequency.value = 277.2
-    oscOne.start(0)
-    oscTwo.start(0)
-    oscThree.start(0)
+function playChord(name) {
+    if(name === 'A Major') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord A Maj.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'A Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord A Min.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'B Major') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord B Maj.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'B Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord B Min.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'C# Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord CshpMin.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'C Major') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord C Maj.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'C Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord C Min.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'D Major') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord D Maj.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'D Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord D Min.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'E Major') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord E Maj.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'E Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord E Min.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'G Major') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord G Maj.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'G# Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord GshpMin.mp3"
+        aMajSfx.play()
+    }
+    if(name === 'F# Minor') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = "chordSfx/scratch-pad chord FshpMin.mp3"
+        aMajSfx.play()
+    }
+    if(name === '') {
+        var aMajSfx = document.createElement("AUDIO")
+        aMajSfx.src = ''
+        aMajSfx.play()
+    }
 }
 
-
-function playAMin () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playBMaj () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playBMin () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playCMaj () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playCshpMin () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playDMaj () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playEMaj () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playEMin () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playFshpMin () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playGMaj () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}
-function playGshpMin () {
-    var oscOne = context.createOscillator
-    var oscTwo = context.createOscillator
-    var oscThree = context.createOscillator
-}

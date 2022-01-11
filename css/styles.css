@@ -1,8 +1,8 @@
 body {
-  background-color: silver;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  background-color: black;
+  display: flex;
+  align-items: stretch;
+  text-align: center;
 }
 
 .list-item {
@@ -23,11 +23,28 @@ ul {
 }
 
 div {
-    border: solid 20px lightslategray;
-    background-color: skyblue;
-    color: blue;
-    margin: 0 15% 0 15%;
-    border-style: ridge;    
+  border: solid 20px lightslategray;
+  background-color: skyblue;
+  color: blue;
+  border-style: ridge;  
+}
+
+#left-side-div {
+  border: none;
+  background: none;
+}
+
+#audio-loop-bar {
+  border: none;
+  text-align: center;
+  justify-content: center;
+}
+
+#chord-btn-list {
+  background-color: black;
+  padding: 0;
+  width: fit-content;
+  height: fit-content;
 }
 
 h1 {
@@ -36,9 +53,8 @@ h1 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: skyblue;
     color: blue;
-    border: 20px slategray;
-    border-style: groove;   
-    margin: 25px 15% 0 15%;
+    border: 20px lightslategray;
+    border-style: groove;
   }
 
 
@@ -47,9 +63,8 @@ h4 {
   block-size: fit-content;
   width: fit-content;
   padding: 20px;
-  border: solid 10px slategray;
+  border: solid 10px lightslategray;
   border-style: groove;
-  margin: 0;
 }
 
 button {
@@ -59,7 +74,7 @@ button {
 }
 
 .pad-btn {
-  font-size: 25px;
+  font-size: 20px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   block-size: 200px;
   width: 200px;

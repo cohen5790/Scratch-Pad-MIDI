@@ -7,24 +7,30 @@
     <title>Scratch Pad </title>
     <link href = "css/styles.css" rel="stylesheet" type="text/css" />
 </head>
-<body background>
-    <h1 id="scratch-pad">Scratch Pad</h1>
-    <div id="chord-div">
-        <h4>Available Chords</h4>
-        <ul id="chord-list"></ul>
+<body>
+
+    <div id="left-side-div">
+        <h1 id="scratch-pad">Scratch Pad</h1>
+        <div id="chord-div">
+            <h4>Available Chords</h4>
+            <ul id="chord-list"></ul>
+        </div>
+        <div id="chord-select-div">
+            <h4>Selected Chords</h4>
+            <div id="audio-loop-bar">Play Audio of loopChord()</div>
+            <ul id="chord-btn-list"></ul>
+        </div>
+        
     </div>
-    <div id="chord-select-div">
-        <h4>Selected Chords</h4>
-        <ul id="selected-chords"></ul>
+    <div id="right-side-div">
+        <div id="scale-btn-div">
+            <h4>Scale Activator</h4>
+            <ul id="scale-btn-list"></ul>
+        </div>    
+            <h4 id="melody-pad">Melody Pad</h4>
+            <ul id="note-btn-list"></ul>    
     </div>
-    <div>
-        <h4>Scale Activator</h4>
-        <ul id="scale-btn-list"></ul>
-    </div>
-<div id='right-side-div'>    
-    <h4 id="melody-pad">Melody Pad</h4>
-    <ul id="note-btn-list"></ul>    
-</div>
+
     <script src="js/script.js"></script>
 </body>
 </html>
