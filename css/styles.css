@@ -34,10 +34,13 @@ div {
   background: none;
 }
 
-#audio-loop-bar {
-  border: none;
-  text-align: center;
-  justify-content: center;
+#chord-div {
+  border-right-style: groove;
+  border-bottom-style: groove;
+}
+
+#chord-select-div {
+  border-right-style: groove;
 }
 
 #chord-btn-list {
@@ -46,6 +49,17 @@ div {
   width: fit-content;
   height: fit-content;
 }
+
+#scale-btn-div {
+  border-style: none;
+  border-bottom-style: ridge;
+}
+
+#melody-pad-div {
+  border-style: none;
+  border-top-style: groove;
+}
+
 
 h1 {
     text-align: center;

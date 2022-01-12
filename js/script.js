@@ -21,7 +21,7 @@ var scaleObjects = [
     {key: 'AMaj', scaleArray: ['A2', 'B2', 'C#3', 'E3', 'F#3', 'A3', 'B3', 'C#4', 'E4', 'F#4']},
     {key: 'DMaj', scaleArray: ['D3', 'E3', 'F#3', 'A3', 'B3', 'D4', 'E4', 'F#4', 'A4', 'B4']},
     {key: 'EMaj', scaleArray: ['E3', 'F#3', 'G#3', 'B3', 'C#4', 'E4', 'F#4', 'G#4', 'B4', 'C#5']},
-    {key: 'GMaj', scaleArray: ['G2', 'A2', 'B2', 'D3', 'E3', 'G3', 'A3', 'B3', 'D4', 'E4']},
+    {key: 'GMaj', scaleArray: ['G2', 'A2', 'B2', 'C3', 'E3', 'G3', 'A3', 'B3', 'C4', 'E4']},
 ]
 
 var noteObjects = [
@@ -61,16 +61,20 @@ var selectedScale = ''
 var currentKey = ''
 var noteFreq = 0
 var keyFreq = 0
-var intervalValue = 2400
+var intervalValue = 1200
+
 
 
 /*----- cached element references -----*/
 
 
 var chordListEl = document.getElementById('chord-list')
+var loopToggleBtnEl = document.getElementById('loop-tog-btn')
 var selectedChordEl = document.getElementById('chord-btn-list')
 var scaleButtonListEl = document.getElementById('scale-btn-list')
 var noteButtonListEl = document.getElementById('note-btn-list')
+var intervalInputEl = document.getElementById('interval-input')
+var intervalInputBtnEl = document.getElementById('interval-input-btn')
 
 
 /*----- event listeners -----*/
@@ -79,6 +83,7 @@ chordListEl.addEventListener('click', chordSelect)
 selectedChordEl.addEventListener('click', clickChord)
 scaleButtonListEl.addEventListener('click', scaleSelector)
 noteButtonListEl.addEventListener('click', clickNote)
+loopToggleBtnEl.addEventListener('click', activateLooper)
 document.addEventListener('keydown', keyedChord) 
 document.addEventListener('keydown', keyedNote)
 
@@ -130,9 +135,10 @@ function chordSelect(evt) {
     forChordButton.push(clickedChord.innerText)
     addChord()
     playChord(clickedChord.innerText)
+    loopToggleBtnEl.classList.add('active')
     iterationTest()
     rePopulateChordList()
-    scaleBtnActivator()
+    scaleBtnActivator()    
 }
 
 function addChord() {
@@ -141,9 +147,31 @@ function addChord() {
     }
 } 
 
-// setInterval(loopPlayer, 2400, playChord(selectedChordEl.childNodes[0].innerText), playChord(selectedChordEl.childNodes[1].innerText), playChord(selectedChordEl.childNodes[2].innerText), playChord(selectedChordEl.childNodes[3].innerText))
+// function changeIntervalValue() {
+//     var inputBPM = intervalInputEl.value
+//     var intervalValue = (60000/inputBPM)
+//     return intervalValue
+// }
 
-// function loopPlayer()
+function activateLooper(evt) {
+    var clicked = evt.target
+    if(clicked.classList.contains('active')) {
+    clicked.classList.add('in-use')
+    loopChords()
+    }
+    if(clicked.classList.contains('in-use')) {
+    clicked.classList.remove('in-use')
+    }
+}
+
+function loopChords() {
+    playChord(selectedChordEl.childNodes[0].innerText)
+    setTimeout(playChord, intervalValue, selectedChordEl.childNodes[1].innerText)
+    setTimeout(playChord, (intervalValue * 2), selectedChordEl.childNodes[2].innerText)
+    setTimeout(playChord, (intervalValue * 3), selectedChordEl.childNodes[3].innerText)
+    setTimeout(loopChords, (intervalValue * 4))
+} 
+
 
 
 
@@ -224,9 +252,8 @@ function notePopulator() {
         }
     })
 }
-
 function keyedNote(evt) {
-    if(evt.code === 'Numpad0' || evt.code === 'Space') {
+    if(evt.code === 'Numpad0' || evt.code === 'KeyB') {
         noteObjects.forEach(function(item) {
             if(noteButtonListEl.childNodes[0].innerText === item.note) {
                 noteFreq = item.frequency
@@ -308,6 +335,7 @@ function keyedNote(evt) {
     }
 }
 
+
 // dessert
 function clickNote(evt) {
     let clickedNote = evt.target
@@ -316,7 +344,7 @@ function clickNote(evt) {
             noteFreq = item.frequency
         }
     })
-    playNote('sawtooth', noteFreq)
+    playNote('square', noteFreq)
 }
 
 function clickChord(evt) {
@@ -329,7 +357,6 @@ function playNote(wave, freq) {
     var gainNode = context.createGain()
     gainNode.connect(context.destination)
     gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1)
-    gainNode.gain.value = 0.25
     var oscNode = context.createOscillator()
     oscNode.type = wave
     oscNode.frequency.value = freq
