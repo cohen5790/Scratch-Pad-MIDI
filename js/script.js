@@ -135,7 +135,6 @@ function chordSelect(evt) {
     forChordButton.push(clickedChord.innerText)
     addChord()
     playChord(clickedChord.innerText)
-    loopToggleBtnEl.classList.add('active')
     iterationTest()
     rePopulateChordList()
     scaleBtnActivator()    
@@ -155,10 +154,8 @@ function addChord() {
 
 function activateLooper(evt) {
     var clicked = evt.target
-    if(clicked.classList.contains('active')) {
     clicked.classList.add('in-use')
     loopChords()
-    }
 }
 
 function loopChords() {
