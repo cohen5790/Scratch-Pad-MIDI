@@ -159,9 +159,6 @@ function activateLooper(evt) {
     clicked.classList.add('in-use')
     loopChords()
     }
-    if(clicked.classList.contains('in-use')) {
-    clicked.classList.remove('in-use')
-    }
 }
 
 function loopChords() {
