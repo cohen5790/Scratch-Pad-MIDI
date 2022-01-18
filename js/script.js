@@ -62,6 +62,7 @@ var currentKey = ''
 var noteFreq = 0
 var keyFreq = 0
 var intervalValue = 1200
+var playOn = "no"
 
 
 
@@ -69,6 +70,7 @@ var intervalValue = 1200
 
 
 var chordListEl = document.getElementById('chord-list')
+var loopAddBtnEl = document.getElementById('loop-add-btn')
 var loopToggleBtnEl = document.getElementById('loop-tog-btn')
 var selectedChordEl = document.getElementById('chord-btn-list')
 var scaleButtonListEl = document.getElementById('scale-btn-list')
@@ -83,7 +85,9 @@ chordListEl.addEventListener('click', chordSelect)
 selectedChordEl.addEventListener('click', clickChord)
 scaleButtonListEl.addEventListener('click', scaleSelector)
 noteButtonListEl.addEventListener('click', clickNote)
-loopToggleBtnEl.addEventListener('click', activateLooper)
+loopAddBtnEl.addEventListener('click', activateLooper)
+loopToggleBtnEl.addEventListener('click', toggleLoop)
+intervalInputBtnEl.addEventListener('click', changeIntervalValue)
 document.addEventListener('keydown', keyedChord) 
 document.addEventListener('keydown', keyedNote)
 
@@ -94,9 +98,6 @@ document.addEventListener('keydown', keyedNote)
 
 
 // >set time between calling playChord fuction (for set tempo)
-// 	        >must repeat
-//          >pause/play function would be nice
-//          >consider setInterval methods
 
 
 window.onload = function firstListPopulation() {
@@ -146,26 +147,45 @@ function addChord() {
     }
 } 
 
-// function changeIntervalValue() {
-//     var inputBPM = intervalInputEl.value
-//     var intervalValue = (60000/inputBPM)
-//     return intervalValue
-// }
+function changeIntervalValue() {
+    var inputBPM = intervalInputEl.value
+    var intervalValue = (60000/inputBPM)
+    return intervalValue
+}
 
-function activateLooper(evt) {
-    var clicked = evt.target
-    clicked.classList.add('in-use')
+function toggleLoop() {
+    if(loopToggleBtnEl.classList.contains('inactive')) {
+        loopToggleBtnEl.classList.remove('inactive')
+        loopToggleBtnEl.classList.add('active')
+        playOn = "yes"
+        return playOn
+    } else if(loopToggleBtnEl.classList.contains('active')) {
+        loopToggleBtnEl.classList.remove('active')
+        loopToggleBtnEl.classList.add('inactive')
+        playOn = "no"
+        return playOn
+    }
+}
+
+function activateLooper() {
+    if(playOn === "no") {
+        return
+    } else {
     loopChords()
+    }
 }
 
 function loopChords() {
+    if(playOn === "yes"){
     playChord(selectedChordEl.childNodes[0].innerText)
     setTimeout(playChord, intervalValue, selectedChordEl.childNodes[1].innerText)
     setTimeout(playChord, (intervalValue * 2), selectedChordEl.childNodes[2].innerText)
     setTimeout(playChord, (intervalValue * 3), selectedChordEl.childNodes[3].innerText)
     setTimeout(loopChords, (intervalValue * 4))
+    } else {
+        return
+    }
 } 
-
 
 
 
