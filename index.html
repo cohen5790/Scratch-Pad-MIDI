@@ -17,10 +17,17 @@
         </div>
         <div id="chord-select-div">
             <h4>Selected Chords</h4>
+            <select id="tempo-select">
+                <option value="">  Select a tempo  </option>
+                <option value="slower">Slower</option>
+                <option value="slow">Slow</option>
+                <option value="moderate">Moderate</option>
+                <option value="fast">Fast</option>
+                <option value="faster">Faster</option>
+            </select>
             <button id="loop-tog-btn" class="inactive">Toggle Loop</button>
-            <button id="loop-add-btn">Add To loop</button>
-            <input type="number" id="interval-input"></input>
-            <button id="interval-input-btn">Enter</button>
+            <button id="loop-add-btn">Start Loop</button>
+            
             <ul id="chord-btn-list"></ul>
         </div>
         

@@ -61,7 +61,7 @@ var selectedScale = ''
 var currentKey = ''
 var noteFreq = 0
 var keyFreq = 0
-var intervalValue = 1200
+var intervalValue = 0
 var playOn = "no"
 
 
@@ -75,8 +75,7 @@ var loopToggleBtnEl = document.getElementById('loop-tog-btn')
 var selectedChordEl = document.getElementById('chord-btn-list')
 var scaleButtonListEl = document.getElementById('scale-btn-list')
 var noteButtonListEl = document.getElementById('note-btn-list')
-var intervalInputEl = document.getElementById('interval-input')
-var intervalInputBtnEl = document.getElementById('interval-input-btn')
+var tempoInputEl = document.getElementById('tempo-select')
 
 
 /*----- event listeners -----*/
@@ -87,7 +86,6 @@ scaleButtonListEl.addEventListener('click', scaleSelector)
 noteButtonListEl.addEventListener('click', clickNote)
 loopAddBtnEl.addEventListener('click', activateLooper)
 loopToggleBtnEl.addEventListener('click', toggleLoop)
-intervalInputBtnEl.addEventListener('click', changeIntervalValue)
 document.addEventListener('keydown', keyedChord) 
 document.addEventListener('keydown', keyedNote)
 
@@ -147,25 +145,38 @@ function addChord() {
     }
 } 
 
-function changeIntervalValue() {
-    var inputBPM = intervalInputEl.value
-    var intervalValue = (60000/inputBPM)
-    return intervalValue
-}
-
 function toggleLoop() {
     if(loopToggleBtnEl.classList.contains('inactive')) {
         loopToggleBtnEl.classList.remove('inactive')
         loopToggleBtnEl.classList.add('active')
+        changeIntervalValue()
+        tempoInputEl.disabled = true
         playOn = "yes"
         return playOn
     } else if(loopToggleBtnEl.classList.contains('active')) {
         loopToggleBtnEl.classList.remove('active')
         loopToggleBtnEl.classList.add('inactive')
+        intervalValue = 0
+        tempoInputEl.disabled = false
         playOn = "no"
         return playOn
     }
 }
+
+function changeIntervalValue() {
+    if(tempoInputEl.value === 'slower') {
+        intervalValue = 2000
+    } else if(tempoInputEl.value === 'slow') {
+        intervalValue = 1500
+    }else if(tempoInputEl.value === 'moderate') {
+        intervalValue = 1200
+    }else if(tempoInputEl.value === 'fast') {
+        intervalValue = 1000
+    }else if(tempoInputEl.value === 'faster') {
+        intervalValue = 858
+    }   
+}
+
 
 function activateLooper() {
     if(playOn === "no") {
@@ -358,7 +369,7 @@ function clickNote(evt) {
             noteFreq = item.frequency
         }
     })
-    playNote('square', noteFreq)
+    playNote('sawtooth', noteFreq)
 }
 
 function clickChord(evt) {

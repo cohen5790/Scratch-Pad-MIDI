@@ -34,15 +34,6 @@ div {
   background: none;
 }
 
-#chord-div {
-  border-right-style: groove;
-  border-bottom-style: groove;
-}
-
-#chord-select-div {
-  border-right-style: groove;
-}
-
 #chord-btn-list {
   background-color: black;
   padding: 0;
@@ -51,13 +42,15 @@ div {
 }
 
 #scale-btn-div {
-  border-style: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid 20px lightslategray;
   border-bottom-style: ridge;
 }
 
 #melody-pad-div {
-  border-style: none;
-  border-top-style: groove;
+  border: none;
 }
 
 
@@ -79,6 +72,8 @@ h4 {
   padding: 20px;
   border: solid 10px lightslategray;
   border-style: groove;
+  margin-top: 0px;
+  margin-left: 0px;
 }
 
 button {
