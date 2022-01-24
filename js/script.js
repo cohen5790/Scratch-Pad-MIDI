@@ -18,10 +18,10 @@ var chordObjects = [
 ]
 
 var scaleObjects = [
-    {key: 'AMaj', scaleArray: ['A2', 'B2', 'C#3', 'E3', 'F#3', 'A3', 'B3', 'C#4', 'E4', 'F#4']},
-    {key: 'DMaj', scaleArray: ['D3', 'E3', 'F#3', 'A3', 'B3', 'D4', 'E4', 'F#4', 'A4', 'B4']},
-    {key: 'EMaj', scaleArray: ['E3', 'F#3', 'G#3', 'B3', 'C#4', 'E4', 'F#4', 'G#4', 'B4', 'C#5']},
-    {key: 'GMaj', scaleArray: ['G2', 'A2', 'B2', 'C3', 'E3', 'G3', 'A3', 'B3', 'C4', 'E4']},
+    {key: 'AMaj', scaleArray: ['A2', 'B2', 'C#3', 'D3', 'E3', 'F#3', 'G#3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G#4']},
+    {key: 'DMaj', scaleArray: ['D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C#4', 'D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5']},
+    {key: 'EMaj', scaleArray: ['E3', 'F#3', 'G#3', 'A3', 'B3', 'C#4', 'D#4', 'E4', 'F#4', 'G#4', 'A4', 'B4', 'C#5', 'D#5']},
+    {key: 'GMaj', scaleArray: ['G2', 'A2', 'B2', 'C3', 'D3', 'E3', 'F#3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F#4']},
 ]
 
 var noteObjects = [
@@ -40,6 +40,7 @@ var noteObjects = [
     {note: 'C4', frequency: 261.6},
     {note: 'C#4', frequency: 277.2},
     {note: 'D4', frequency: 293.7},
+    {note: 'D#4', frequency: 311.13},
     {note: 'E4', frequency: 329.6},
     {note: 'F#4', frequency: 370.0},
     {note: 'G4', frequency: 392.0},
@@ -47,6 +48,7 @@ var noteObjects = [
     {note: 'A4', frequency: 440},
     {note: 'B4', frequency: 493.9}, 
     {note: 'C#5', frequency: 554.4},
+    {note: 'D#5', frequency: 622.25}
 ]
 
 
@@ -61,7 +63,7 @@ var selectedScale = ''
 var currentKey = ''
 var noteFreq = 0
 var keyFreq = 0
-var intervalValue = 0
+var intervalValue = 1200
 var playOn = "no"
 
 
@@ -94,10 +96,6 @@ document.addEventListener('keydown', keyedNote)
 
 /*----- functions -----*/
 
-
-// >set time between calling playChord fuction (for set tempo)
-
-
 window.onload = function firstListPopulation() {
     allChords.forEach(function(item) {
         let newEl = document.createElement('li')
@@ -119,7 +117,7 @@ window.onload = function firstListPopulation() {
         newEl.classList.add('pad-btn')
         selectedChordEl.appendChild(newEl)        
     }
-    for(var i=1; i<=10; i++) {
+    for(var i=1; i<=14; i++) {
         let buttonEl = document.createElement('button') 
         buttonEl.innerText = i
         buttonEl.classList.add('pad-btn')
@@ -127,7 +125,9 @@ window.onload = function firstListPopulation() {
     }
 }
 
+
 // Meat and potatoes
+
 function chordSelect(evt) {
     var clickedChord = evt.target    
     selectedChords.push(clickedChord.innerText)
@@ -138,13 +138,11 @@ function chordSelect(evt) {
     rePopulateChordList()
     scaleBtnActivator()    
 }
-
 function addChord() {
     for(var i=0; i<4; i++) {
         selectedChordEl.childNodes[i].innerText = forChordButton[i]
     }
 } 
-
 function toggleLoop() {
     if(loopToggleBtnEl.classList.contains('inactive')) {
         loopToggleBtnEl.classList.remove('inactive')
@@ -162,7 +160,6 @@ function toggleLoop() {
         return playOn
     }
 }
-
 function changeIntervalValue() {
     if(tempoInputEl.value === 'slower') {
         intervalValue = 2000
@@ -176,8 +173,6 @@ function changeIntervalValue() {
         intervalValue = 858
     }   
 }
-
-
 function activateLooper() {
     if(playOn === "no") {
         return
@@ -185,7 +180,6 @@ function activateLooper() {
     loopChords()
     }
 }
-
 function loopChords() {
     if(playOn === "yes"){
     playChord(selectedChordEl.childNodes[0].innerText)
@@ -197,21 +191,6 @@ function loopChords() {
         return
     }
 } 
-
-
-
-function keyedChord(evt) {
-    if(evt.code === 'Digit1') {
-        playChord(forChordButton[0])
-    } else if(evt.code === 'Digit2') {
-        playChord(forChordButton[1])
-    } else if(evt.code === 'Digit3') {
-        playChord(forChordButton[2])
-    } else if(evt.code === 'Digit4') {
-        playChord(forChordButton[3])
-    }
-}
-
 function iterationTest() {
     availableChords = []
     availableKeys = []
@@ -224,7 +203,6 @@ function iterationTest() {
         } 
     })    
 }
-
 function rePopulateChordList() {
     chordListEl.innerHTML = ''
     availableChords.forEach(function(item) {
@@ -234,7 +212,6 @@ function rePopulateChordList() {
         chordListEl.appendChild(newEl)
     })
 }
-
 function scaleBtnActivator() {
     scaleObjects.forEach(function(obj) {
         var test = availableKeys.includes(obj.key)
@@ -251,7 +228,9 @@ function scaleBtnActivator() {
         }
     })
 }
+
 // gravy 
+
 function scaleSelector(evt) {
     var clickedButton = evt.target
     let activeBtnEl = document.querySelectorAll('.in-use')
@@ -271,12 +250,15 @@ function scaleSelector(evt) {
 function notePopulator() {
     scaleObjects.forEach(function(item) {
         if(item.key === selectedScale) {
-            for(i=0; i<10; i++) {
+            for(i=0; i<14; i++) {
                 noteButtonListEl.childNodes[i].innerText = item.scaleArray[i]
             } 
         }
     })
 }
+
+// dessert
+
 function keyedNote(evt) {
     if(evt.code === 'Numpad0' || evt.code === 'KeyB') {
         noteObjects.forEach(function(item) {
@@ -359,9 +341,17 @@ function keyedNote(evt) {
         playNote('sawtooth', noteFreq)
     }
 }
-
-
-// dessert
+function keyedChord(evt) {
+    if(evt.code === 'Digit1') {
+        playChord(forChordButton[0])
+    } else if(evt.code === 'Digit2') {
+        playChord(forChordButton[1])
+    } else if(evt.code === 'Digit3') {
+        playChord(forChordButton[2])
+    } else if(evt.code === 'Digit4') {
+        playChord(forChordButton[3])
+    }
+}
 function clickNote(evt) {
     let clickedNote = evt.target
     noteObjects.forEach(function(item) {
@@ -371,24 +361,24 @@ function clickNote(evt) {
     })
     playNote('sawtooth', noteFreq)
 }
-
 function clickChord(evt) {
     let chordForSfx = evt.target
     playChord(chordForSfx.innerText)
 }
-
 // inspired by https://codesandbox.io/s/javascript-synthesizer-7i16o?file=/js/main.js
 function playNote(wave, freq) {
     var gainNode = context.createGain()
     gainNode.connect(context.destination)
-    gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1)
+    gainNode.gain.value = 0.36
+    gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.15)
     var oscNode = context.createOscillator()
     oscNode.type = wave
     oscNode.frequency.value = freq
     oscNode.connect(gainNode)
     oscNode.start(0)
+    
+    
 }
-
 function playChord(name) {
     if(name === 'A Major') {
         var aMajSfx = document.createElement("AUDIO")
