@@ -381,79 +381,79 @@ function playNote(wave, freq) {
 }
 function playChord(name) {
     if(name === 'A Major') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord A Maj.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord A Maj.mp3"
+        chordSfx.play()
     }
     if(name === 'A Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord A Min.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord A Min.mp3"
+        chordSfx.play()
     }
     if(name === 'B Major') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord B Maj.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord B Maj.mp3"
+        chordSfx.play()
     }
     if(name === 'B Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord B Min.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord B Min.mp3"
+        chordSfx.play()
     }
     if(name === 'C# Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord CshpMin.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord CshpMin.mp3"
+        chordSfx.play()
     }
     if(name === 'C Major') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord C Maj.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord C Maj.mp3"
+        chordSfx.play()
     }
     if(name === 'C Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord C Min.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord C Min.mp3"
+        chordSfx.play()
     }
     if(name === 'D Major') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord D Maj.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord D Maj.mp3"
+        chordSfx.play()
     }
     if(name === 'D Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord D Min.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord D Min.mp3"
+        chordSfx.play()
     }
     if(name === 'E Major') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord E Maj.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord E Maj.mp3"
+        chordSfx.play()
     }
     if(name === 'E Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord E Min.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord E Min.mp3"
+        chordSfx.play()
     }
     if(name === 'G Major') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord G Maj.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord G Maj.mp3"
+        chordSfx.play()
     }
     if(name === 'G# Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord GshpMin.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord GshpMin.mp3"
+        chordSfx.play()
     }
     if(name === 'F# Minor') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = "chordSfx/scratch-pad chord FshpMin.mp3"
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = "chordSfx/scratch-pad chord FshpMin.mp3"
+        chordSfx.play()
     }
     if(name === '') {
-        var aMajSfx = document.createElement("AUDIO")
-        aMajSfx.src = ''
-        aMajSfx.play()
+        var chordSfx = document.createElement("AUDIO")
+        chordSfx.src = ''
+        chordSfx.play()
     }
 }
 
