@@ -370,7 +370,7 @@ function playNote(wave, freq) {
     var gainNode = context.createGain()
     gainNode.connect(context.destination)
     gainNode.gain.value = 0.36
-    gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.15)
+    gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1.18)
     var oscNode = context.createOscillator()
     oscNode.type = wave
     oscNode.frequency.value = freq
